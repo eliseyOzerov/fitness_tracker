@@ -7,15 +7,21 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3C4BAD942A03758600294C2E /* AddFoodView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C4BAD932A03758600294C2E /* AddFoodView.swift */; };
+		3C7617852A1533F700B854D3 /* CreateFoodView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C7617842A1533F600B854D3 /* CreateFoodView.swift */; };
 		3CA6662E2A0009AA00C8D0B2 /* Fitness_TrackerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA6662D2A0009AA00C8D0B2 /* Fitness_TrackerApp.swift */; };
 		3CA666302A0009AA00C8D0B2 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA6662F2A0009AA00C8D0B2 /* ContentView.swift */; };
 		3CA666322A0009AC00C8D0B2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3CA666312A0009AC00C8D0B2 /* Assets.xcassets */; };
 		3CA666352A0009AC00C8D0B2 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3CA666342A0009AC00C8D0B2 /* Preview Assets.xcassets */; };
-		3CA666372A0009AC00C8D0B2 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA666362A0009AC00C8D0B2 /* Persistence.swift */; };
 		3CA6663A2A0009AC00C8D0B2 /* Fitness_Tracker.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3CA666382A0009AC00C8D0B2 /* Fitness_Tracker.xcdatamodeld */; };
 		3CA666452A0009AC00C8D0B2 /* Fitness_TrackerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA666442A0009AC00C8D0B2 /* Fitness_TrackerTests.swift */; };
 		3CA6664F2A0009AC00C8D0B2 /* Fitness_TrackerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA6664E2A0009AC00C8D0B2 /* Fitness_TrackerUITests.swift */; };
 		3CA666512A0009AC00C8D0B2 /* Fitness_TrackerUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA666502A0009AC00C8D0B2 /* Fitness_TrackerUITestsLaunchTests.swift */; };
+		3CA6665E2A000C4F00C8D0B2 /* NutritionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA6665D2A000C4F00C8D0B2 /* NutritionView.swift */; };
+		3CA666602A000C7300C8D0B2 /* TrainingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA6665F2A000C7300C8D0B2 /* TrainingView.swift */; };
+		3CA666632A000C9D00C8D0B2 /* BodyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA666622A000C9D00C8D0B2 /* BodyView.swift */; };
+		3CA666652A000CB100C8D0B2 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA666642A000CB100C8D0B2 /* SettingsView.swift */; };
+		3CCCB2312A1F3747001076BF /* BarcodeScannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CCCB2302A1F3747001076BF /* BarcodeScannerView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,12 +42,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3C4BAD932A03758600294C2E /* AddFoodView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFoodView.swift; sourceTree = "<group>"; };
+		3C7617842A1533F600B854D3 /* CreateFoodView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateFoodView.swift; sourceTree = "<group>"; };
 		3CA6662A2A0009AA00C8D0B2 /* Fitness Tracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Fitness Tracker.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3CA6662D2A0009AA00C8D0B2 /* Fitness_TrackerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fitness_TrackerApp.swift; sourceTree = "<group>"; };
 		3CA6662F2A0009AA00C8D0B2 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		3CA666312A0009AC00C8D0B2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3CA666342A0009AC00C8D0B2 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		3CA666362A0009AC00C8D0B2 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		3CA666392A0009AC00C8D0B2 /* Fitness_Tracker.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Fitness_Tracker.xcdatamodel; sourceTree = "<group>"; };
 		3CA6663B2A0009AC00C8D0B2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3CA666402A0009AC00C8D0B2 /* Fitness TrackerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Fitness TrackerTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -49,6 +56,12 @@
 		3CA6664A2A0009AC00C8D0B2 /* Fitness TrackerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Fitness TrackerUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3CA6664E2A0009AC00C8D0B2 /* Fitness_TrackerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fitness_TrackerUITests.swift; sourceTree = "<group>"; };
 		3CA666502A0009AC00C8D0B2 /* Fitness_TrackerUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fitness_TrackerUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		3CA6665D2A000C4F00C8D0B2 /* NutritionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NutritionView.swift; sourceTree = "<group>"; };
+		3CA6665F2A000C7300C8D0B2 /* TrainingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainingView.swift; sourceTree = "<group>"; };
+		3CA666622A000C9D00C8D0B2 /* BodyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BodyView.swift; sourceTree = "<group>"; };
+		3CA666642A000CB100C8D0B2 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		3CCCB22F2A1DE821001076BF /* Fitness-Tracker-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Fitness-Tracker-Info.plist"; sourceTree = SOURCE_ROOT; };
+		3CCCB2302A1F3747001076BF /* BarcodeScannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarcodeScannerView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,10 +112,10 @@
 		3CA6662C2A0009AA00C8D0B2 /* Fitness Tracker */ = {
 			isa = PBXGroup;
 			children = (
+				3CCCB22F2A1DE821001076BF /* Fitness-Tracker-Info.plist */,
+				3CA666612A000C8500C8D0B2 /* Views */,
 				3CA6662D2A0009AA00C8D0B2 /* Fitness_TrackerApp.swift */,
-				3CA6662F2A0009AA00C8D0B2 /* ContentView.swift */,
 				3CA666312A0009AC00C8D0B2 /* Assets.xcassets */,
-				3CA666362A0009AC00C8D0B2 /* Persistence.swift */,
 				3CA6663B2A0009AC00C8D0B2 /* Info.plist */,
 				3CA666382A0009AC00C8D0B2 /* Fitness_Tracker.xcdatamodeld */,
 				3CA666332A0009AC00C8D0B2 /* Preview Content */,
@@ -133,6 +146,61 @@
 				3CA666502A0009AC00C8D0B2 /* Fitness_TrackerUITestsLaunchTests.swift */,
 			);
 			path = "Fitness TrackerUITests";
+			sourceTree = "<group>";
+		};
+		3CA666612A000C8500C8D0B2 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				3CCCB2372A1F37AC001076BF /* Common */,
+				3CCCB2362A1F37A3001076BF /* Settings */,
+				3CCCB2352A1F379A001076BF /* Body */,
+				3CCCB2342A1F3790001076BF /* Training */,
+				3CCCB2332A1F3775001076BF /* Nutrition */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		3CCCB2332A1F3775001076BF /* Nutrition */ = {
+			isa = PBXGroup;
+			children = (
+				3C4BAD932A03758600294C2E /* AddFoodView.swift */,
+				3C7617842A1533F600B854D3 /* CreateFoodView.swift */,
+				3CA6665D2A000C4F00C8D0B2 /* NutritionView.swift */,
+			);
+			path = Nutrition;
+			sourceTree = "<group>";
+		};
+		3CCCB2342A1F3790001076BF /* Training */ = {
+			isa = PBXGroup;
+			children = (
+				3CA6665F2A000C7300C8D0B2 /* TrainingView.swift */,
+			);
+			path = Training;
+			sourceTree = "<group>";
+		};
+		3CCCB2352A1F379A001076BF /* Body */ = {
+			isa = PBXGroup;
+			children = (
+				3CA666622A000C9D00C8D0B2 /* BodyView.swift */,
+			);
+			path = Body;
+			sourceTree = "<group>";
+		};
+		3CCCB2362A1F37A3001076BF /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				3CA666642A000CB100C8D0B2 /* SettingsView.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		3CCCB2372A1F37AC001076BF /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				3CA6662F2A0009AA00C8D0B2 /* ContentView.swift */,
+				3CCCB2302A1F3747001076BF /* BarcodeScannerView.swift */,
+			);
+			path = Common;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -265,10 +333,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3CA666372A0009AC00C8D0B2 /* Persistence.swift in Sources */,
+				3CA666652A000CB100C8D0B2 /* SettingsView.swift in Sources */,
+				3C7617852A1533F700B854D3 /* CreateFoodView.swift in Sources */,
 				3CA666302A0009AA00C8D0B2 /* ContentView.swift in Sources */,
 				3CA6662E2A0009AA00C8D0B2 /* Fitness_TrackerApp.swift in Sources */,
 				3CA6663A2A0009AC00C8D0B2 /* Fitness_Tracker.xcdatamodeld in Sources */,
+				3CA666602A000C7300C8D0B2 /* TrainingView.swift in Sources */,
+				3CCCB2312A1F3747001076BF /* BarcodeScannerView.swift in Sources */,
+				3CA6665E2A000C4F00C8D0B2 /* NutritionView.swift in Sources */,
+				3CA666632A000C9D00C8D0B2 /* BodyView.swift in Sources */,
+				3C4BAD942A03758600294C2E /* AddFoodView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -430,21 +504,29 @@
 				DEVELOPMENT_TEAM = B436S7J3T5;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Fitness-Tracker-Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Fitness Tracker";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
+				INFOPLIST_KEY_NSCameraUsageDescription = "We need access to your camera to scan barcodes and take photos of food.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.eliseyozerov.Fitness-Tracker";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.eliseyozerov.fitness-tracker";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -459,21 +541,29 @@
 				DEVELOPMENT_TEAM = B436S7J3T5;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Fitness-Tracker-Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Fitness Tracker";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
+				INFOPLIST_KEY_NSCameraUsageDescription = "We need access to your camera to scan barcodes and take photos of food.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.eliseyozerov.Fitness-Tracker";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.eliseyozerov.fitness-tracker";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
