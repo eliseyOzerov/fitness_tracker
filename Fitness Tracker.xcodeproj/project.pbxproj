@@ -8,12 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		3C4BAD942A03758600294C2E /* AddFoodView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C4BAD932A03758600294C2E /* AddFoodView.swift */; };
+		3C4D06462A1FDA8300B5850C /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C4D06452A1FDA8300B5850C /* Persistence.swift */; };
 		3C7617852A1533F700B854D3 /* CreateFoodView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C7617842A1533F600B854D3 /* CreateFoodView.swift */; };
 		3CA6662E2A0009AA00C8D0B2 /* Fitness_TrackerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA6662D2A0009AA00C8D0B2 /* Fitness_TrackerApp.swift */; };
 		3CA666302A0009AA00C8D0B2 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA6662F2A0009AA00C8D0B2 /* ContentView.swift */; };
 		3CA666322A0009AC00C8D0B2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3CA666312A0009AC00C8D0B2 /* Assets.xcassets */; };
 		3CA666352A0009AC00C8D0B2 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3CA666342A0009AC00C8D0B2 /* Preview Assets.xcassets */; };
-		3CA6663A2A0009AC00C8D0B2 /* Fitness_Tracker.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3CA666382A0009AC00C8D0B2 /* Fitness_Tracker.xcdatamodeld */; };
+		3CA6663A2A0009AC00C8D0B2 /* FitnessTracker.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3CA666382A0009AC00C8D0B2 /* FitnessTracker.xcdatamodeld */; };
 		3CA666452A0009AC00C8D0B2 /* Fitness_TrackerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA666442A0009AC00C8D0B2 /* Fitness_TrackerTests.swift */; };
 		3CA6664F2A0009AC00C8D0B2 /* Fitness_TrackerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA6664E2A0009AC00C8D0B2 /* Fitness_TrackerUITests.swift */; };
 		3CA666512A0009AC00C8D0B2 /* Fitness_TrackerUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA666502A0009AC00C8D0B2 /* Fitness_TrackerUITestsLaunchTests.swift */; };
@@ -43,6 +44,7 @@
 
 /* Begin PBXFileReference section */
 		3C4BAD932A03758600294C2E /* AddFoodView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFoodView.swift; sourceTree = "<group>"; };
+		3C4D06452A1FDA8300B5850C /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		3C7617842A1533F600B854D3 /* CreateFoodView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateFoodView.swift; sourceTree = "<group>"; };
 		3CA6662A2A0009AA00C8D0B2 /* Fitness Tracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Fitness Tracker.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3CA6662D2A0009AA00C8D0B2 /* Fitness_TrackerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fitness_TrackerApp.swift; sourceTree = "<group>"; };
@@ -117,8 +119,9 @@
 				3CA6662D2A0009AA00C8D0B2 /* Fitness_TrackerApp.swift */,
 				3CA666312A0009AC00C8D0B2 /* Assets.xcassets */,
 				3CA6663B2A0009AC00C8D0B2 /* Info.plist */,
-				3CA666382A0009AC00C8D0B2 /* Fitness_Tracker.xcdatamodeld */,
+				3CA666382A0009AC00C8D0B2 /* FitnessTracker.xcdatamodeld */,
 				3CA666332A0009AC00C8D0B2 /* Preview Content */,
+				3C4D06452A1FDA8300B5850C /* Persistence.swift */,
 			);
 			path = "Fitness Tracker";
 			sourceTree = "<group>";
@@ -333,11 +336,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3C4D06462A1FDA8300B5850C /* Persistence.swift in Sources */,
 				3CA666652A000CB100C8D0B2 /* SettingsView.swift in Sources */,
 				3C7617852A1533F700B854D3 /* CreateFoodView.swift in Sources */,
 				3CA666302A0009AA00C8D0B2 /* ContentView.swift in Sources */,
 				3CA6662E2A0009AA00C8D0B2 /* Fitness_TrackerApp.swift in Sources */,
-				3CA6663A2A0009AC00C8D0B2 /* Fitness_Tracker.xcdatamodeld in Sources */,
+				3CA6663A2A0009AC00C8D0B2 /* FitnessTracker.xcdatamodeld in Sources */,
 				3CA666602A000C7300C8D0B2 /* TrainingView.swift in Sources */,
 				3CCCB2312A1F3747001076BF /* BarcodeScannerView.swift in Sources */,
 				3CA6665E2A000C4F00C8D0B2 /* NutritionView.swift in Sources */,
@@ -685,13 +689,13 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		3CA666382A0009AC00C8D0B2 /* Fitness_Tracker.xcdatamodeld */ = {
+		3CA666382A0009AC00C8D0B2 /* FitnessTracker.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
 				3CA666392A0009AC00C8D0B2 /* Fitness_Tracker.xcdatamodel */,
 			);
 			currentVersion = 3CA666392A0009AC00C8D0B2 /* Fitness_Tracker.xcdatamodel */;
-			path = Fitness_Tracker.xcdatamodeld;
+			path = FitnessTracker.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};

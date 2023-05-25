@@ -24,7 +24,9 @@ struct CreateFoodView: View {
     @State var code: String = ""
     
     @State var showImagePicker = false
-    @State private var inputImage: UIImage?
+    @State var inputImage: UIImage?
+    
+    @State var imagePath = ""
     
     func save() {
         
@@ -38,8 +40,36 @@ struct CreateFoodView: View {
         
     }
     
-    func addPhoto() {
+    func savePhoto() -> String? {
+        guard let data = inputImage?.pngData() else { return nil }
+        guard let url = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else { return nil }
+        let completeUrl = url.appendingPathComponent("code.png")
         
+        do {
+            try data.write(to: completeUrl)
+        } catch {
+            print("Something went wrong while saving photo \(error)")
+            return nil
+        }
+        
+        let res = completeUrl.absoluteString
+        imagePath = res
+        
+        print("Saved the photo to \(imagePath)")
+        
+        return res
+    }
+    
+    func deletePhoto() {
+        if (!imagePath.isEmpty) {
+            do {
+                try FileManager.default.removeItem(at: URL(string: imagePath)!)
+            } catch {
+                print("Failed to delete the item at path \(imagePath): \(error)")
+                return
+            }
+            print("Deleted photo at \(imagePath)")
+        }
     }
     
     var canSaveItem: Bool {
@@ -81,6 +111,7 @@ struct CreateFoodView: View {
                             Button(action: {
                                 withAnimation(.easeInOut) {
                                     inputImage = nil
+                                    deletePhoto()
                                 }
                             }) {
                                 Image(systemName: "xmark.circle.fill")
@@ -103,6 +134,9 @@ struct CreateFoodView: View {
                 .frame(maxWidth: .infinity)
                 .padding(18)
                 .padding(.bottom, 20)
+                .onChange(of: inputImage) { value in
+                    savePhoto()
+                }
             }
             Section("General") {
                 HStack {
@@ -176,7 +210,7 @@ struct CreateFoodView: View {
             .ignoresSafeArea()
             .statusBarHidden()
         }
-        .fullScreenCover(isPresented: $showImagePicker, onDismiss: addPhoto) {
+        .fullScreenCover(isPresented: $showImagePicker) {
             ImagePicker(image: $inputImage, sourceType: .camera)
                 .ignoresSafeArea()
         }

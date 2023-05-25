@@ -6,12 +6,16 @@
 //
 
 import SwiftUI
+import CoreData
 
 @main
 struct Fitness_TrackerApp: App {
+    @StateObject var persistence = Persistence()
+    
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environment(\.managedObjectContext, persistence.container.viewContext)
         }
     }
 }
