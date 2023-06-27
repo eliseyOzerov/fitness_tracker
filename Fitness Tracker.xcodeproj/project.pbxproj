@@ -7,9 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3C4BAD942A03758600294C2E /* AddFoodView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C4BAD932A03758600294C2E /* AddFoodView.swift */; };
-		3C4D06462A1FDA8300B5850C /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C4D06452A1FDA8300B5850C /* Persistence.swift */; };
+		3C037BBF2A3903C80065D1AE /* ViewModifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C037BBE2A3903C80065D1AE /* ViewModifiers.swift */; };
+		3C185CB02A3A198F0023237D /* CDModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C185CAF2A3A198F0023237D /* CDModels.swift */; };
+		3C4BAD942A03758600294C2E /* LogFoodView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C4BAD932A03758600294C2E /* LogFoodView.swift */; };
+		3C64EBF02A2FAE9D004EAB12 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C64EBEF2A2FAE9D004EAB12 /* Persistence.swift */; };
 		3C7617852A1533F700B854D3 /* CreateFoodView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C7617842A1533F600B854D3 /* CreateFoodView.swift */; };
+		3C904EAC2A3782B100619654 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C904EAB2A3782B100619654 /* Color.swift */; };
 		3CA6662E2A0009AA00C8D0B2 /* Fitness_TrackerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA6662D2A0009AA00C8D0B2 /* Fitness_TrackerApp.swift */; };
 		3CA666302A0009AA00C8D0B2 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA6662F2A0009AA00C8D0B2 /* ContentView.swift */; };
 		3CA666322A0009AC00C8D0B2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3CA666312A0009AC00C8D0B2 /* Assets.xcassets */; };
@@ -23,6 +26,10 @@
 		3CA666632A000C9D00C8D0B2 /* BodyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA666622A000C9D00C8D0B2 /* BodyView.swift */; };
 		3CA666652A000CB100C8D0B2 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA666642A000CB100C8D0B2 /* SettingsView.swift */; };
 		3CCCB2312A1F3747001076BF /* BarcodeScannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CCCB2302A1F3747001076BF /* BarcodeScannerView.swift */; };
+		3CDF5E872A360D00007481BA /* FoodItemRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CDF5E862A360D00007481BA /* FoodItemRow.swift */; };
+		3CE0913C2A2E482D006977FB /* Nutrition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CE0913B2A2E482C006977FB /* Nutrition.swift */; };
+		3CE0913F2A2E4AA0006977FB /* FoodItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CE0913E2A2E4AA0006977FB /* FoodItem.swift */; };
+		3CF2E81B2A43529500170C55 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CF2E81A2A43529500170C55 /* Date.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -43,9 +50,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		3C4BAD932A03758600294C2E /* AddFoodView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFoodView.swift; sourceTree = "<group>"; };
-		3C4D06452A1FDA8300B5850C /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
+		3C037BBE2A3903C80065D1AE /* ViewModifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModifiers.swift; sourceTree = "<group>"; };
+		3C185CAF2A3A198F0023237D /* CDModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CDModels.swift; sourceTree = "<group>"; };
+		3C4BAD932A03758600294C2E /* LogFoodView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogFoodView.swift; sourceTree = "<group>"; };
+		3C64EBEF2A2FAE9D004EAB12 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		3C7617842A1533F600B854D3 /* CreateFoodView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateFoodView.swift; sourceTree = "<group>"; };
+		3C904EAB2A3782B100619654 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		3CA6662A2A0009AA00C8D0B2 /* Fitness Tracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Fitness Tracker.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3CA6662D2A0009AA00C8D0B2 /* Fitness_TrackerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fitness_TrackerApp.swift; sourceTree = "<group>"; };
 		3CA6662F2A0009AA00C8D0B2 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -64,6 +74,10 @@
 		3CA666642A000CB100C8D0B2 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		3CCCB22F2A1DE821001076BF /* Fitness-Tracker-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Fitness-Tracker-Info.plist"; sourceTree = SOURCE_ROOT; };
 		3CCCB2302A1F3747001076BF /* BarcodeScannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarcodeScannerView.swift; sourceTree = "<group>"; };
+		3CDF5E862A360D00007481BA /* FoodItemRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodItemRow.swift; sourceTree = "<group>"; };
+		3CE0913B2A2E482C006977FB /* Nutrition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Nutrition.swift; sourceTree = "<group>"; };
+		3CE0913E2A2E4AA0006977FB /* FoodItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodItem.swift; sourceTree = "<group>"; };
+		3CF2E81A2A43529500170C55 /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,6 +105,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3C904EAA2A3782A300619654 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				3C904EAB2A3782B100619654 /* Color.swift */,
+				3C037BBE2A3903C80065D1AE /* ViewModifiers.swift */,
+				3C185CAF2A3A198F0023237D /* CDModels.swift */,
+				3CF2E81A2A43529500170C55 /* Date.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		3CA666212A0009AA00C8D0B2 = {
 			isa = PBXGroup;
 			children = (
@@ -114,14 +139,16 @@
 		3CA6662C2A0009AA00C8D0B2 /* Fitness Tracker */ = {
 			isa = PBXGroup;
 			children = (
+				3C904EAA2A3782A300619654 /* Extensions */,
 				3CCCB22F2A1DE821001076BF /* Fitness-Tracker-Info.plist */,
 				3CA666612A000C8500C8D0B2 /* Views */,
 				3CA6662D2A0009AA00C8D0B2 /* Fitness_TrackerApp.swift */,
 				3CA666312A0009AC00C8D0B2 /* Assets.xcassets */,
+				3CE0913A2A2E481C006977FB /* Data */,
 				3CA6663B2A0009AC00C8D0B2 /* Info.plist */,
 				3CA666382A0009AC00C8D0B2 /* FitnessTracker.xcdatamodeld */,
 				3CA666332A0009AC00C8D0B2 /* Preview Content */,
-				3C4D06452A1FDA8300B5850C /* Persistence.swift */,
+				3C64EBEF2A2FAE9D004EAB12 /* Persistence.swift */,
 			);
 			path = "Fitness Tracker";
 			sourceTree = "<group>";
@@ -166,7 +193,7 @@
 		3CCCB2332A1F3775001076BF /* Nutrition */ = {
 			isa = PBXGroup;
 			children = (
-				3C4BAD932A03758600294C2E /* AddFoodView.swift */,
+				3C4BAD932A03758600294C2E /* LogFoodView.swift */,
 				3C7617842A1533F600B854D3 /* CreateFoodView.swift */,
 				3CA6665D2A000C4F00C8D0B2 /* NutritionView.swift */,
 			);
@@ -202,8 +229,26 @@
 			children = (
 				3CA6662F2A0009AA00C8D0B2 /* ContentView.swift */,
 				3CCCB2302A1F3747001076BF /* BarcodeScannerView.swift */,
+				3CDF5E862A360D00007481BA /* FoodItemRow.swift */,
 			);
 			path = Common;
+			sourceTree = "<group>";
+		};
+		3CE0913A2A2E481C006977FB /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				3CE0913D2A2E4A96006977FB /* Models */,
+				3CE0913B2A2E482C006977FB /* Nutrition.swift */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		3CE0913D2A2E4A96006977FB /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				3CE0913E2A2E4AA0006977FB /* FoodItem.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -336,17 +381,24 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3C4D06462A1FDA8300B5850C /* Persistence.swift in Sources */,
 				3CA666652A000CB100C8D0B2 /* SettingsView.swift in Sources */,
 				3C7617852A1533F700B854D3 /* CreateFoodView.swift in Sources */,
 				3CA666302A0009AA00C8D0B2 /* ContentView.swift in Sources */,
 				3CA6662E2A0009AA00C8D0B2 /* Fitness_TrackerApp.swift in Sources */,
+				3CE0913F2A2E4AA0006977FB /* FoodItem.swift in Sources */,
 				3CA6663A2A0009AC00C8D0B2 /* FitnessTracker.xcdatamodeld in Sources */,
+				3CE0913C2A2E482D006977FB /* Nutrition.swift in Sources */,
+				3CF2E81B2A43529500170C55 /* Date.swift in Sources */,
+				3C64EBF02A2FAE9D004EAB12 /* Persistence.swift in Sources */,
+				3C904EAC2A3782B100619654 /* Color.swift in Sources */,
 				3CA666602A000C7300C8D0B2 /* TrainingView.swift in Sources */,
 				3CCCB2312A1F3747001076BF /* BarcodeScannerView.swift in Sources */,
+				3C037BBF2A3903C80065D1AE /* ViewModifiers.swift in Sources */,
 				3CA6665E2A000C4F00C8D0B2 /* NutritionView.swift in Sources */,
+				3C185CB02A3A198F0023237D /* CDModels.swift in Sources */,
+				3CDF5E872A360D00007481BA /* FoodItemRow.swift in Sources */,
 				3CA666632A000C9D00C8D0B2 /* BodyView.swift in Sources */,
-				3C4BAD942A03758600294C2E /* AddFoodView.swift in Sources */,
+				3C4BAD942A03758600294C2E /* LogFoodView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -433,7 +485,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -487,7 +539,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;

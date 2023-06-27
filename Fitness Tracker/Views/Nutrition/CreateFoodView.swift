@@ -12,13 +12,18 @@ import VisionKit
 
 
 struct CreateFoodView: View {
+    @Environment(\.managedObjectContext) var persistence
+    
     @State var brand: String = ""
     @State var title: String = ""
     @State var notes: String = ""
     @State var calories: Int?
-    @State var protein: Int?
-    @State var carbs: Int?
-    @State var fats: Int?
+    @State var protein: Double?
+    @State var carbs: Double?
+    @State var fats: Double?
+    @State var category: String = "None"
+    
+    @Binding var isScreenPresented: Bool
     
     @State var showScanner = false
     @State var code: String = ""
@@ -26,24 +31,58 @@ struct CreateFoodView: View {
     @State var showImagePicker = false
     @State var inputImage: UIImage?
     
-    @State var imagePath = ""
+    let categories = [
+        "None",
+        "Fruits & Vegetables",
+        "Meat & Seafood",
+        "Meat Alternatives",
+        "Dairy & Eggs",
+        "Dairy Alternatives",
+        "Specialty Cheeses",
+        "Bread & Bakery",
+        "Bakery & Dessert Items",
+        "Pasta & Rice",
+        "Cereal & Breakfast Foods",
+        "Snacks",
+        "Beverages",
+        "Non-alcoholic Beverages",
+        "Beer, Wine, & Spirits",
+        "Ice & Beverage Mixes",
+        "Condiments & Sauces",
+        "Spices & Seasonings",
+        "Baking Ingredients",
+        "Canned Goods & Soups",
+        "Frozen Foods",
+        "Deli & Prepared Foods",
+        "International Foods",
+        "Health Foods",
+        "Baby & Child Products",
+        "Bulk Items",
+    ]
     
     func save() {
-        
-    }
-    
-    func cancel() {
-        
-    }
-    
-    func scanBarcode() {
-        
+        let item = FoodItem(context: persistence)
+        item.barcode = code
+        item.brand = brand
+        item.title = title
+        item.notes = notes
+        item.protein = protein!
+        item.carbs = carbs!
+        item.fats = fats!
+        item.category = category
+        item.thumbnailUrl = savePhoto()
+        do {
+            try persistence.save()
+            isScreenPresented = false
+        } catch {
+            print(error)
+        }
     }
     
     func savePhoto() -> String? {
         guard let data = inputImage?.pngData() else { return nil }
         guard let url = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else { return nil }
-        let completeUrl = url.appendingPathComponent("code.png")
+        let completeUrl = url.appendingPathComponent("\(code)-\(title).png")
         
         do {
             try data.write(to: completeUrl)
@@ -53,23 +92,10 @@ struct CreateFoodView: View {
         }
         
         let res = completeUrl.absoluteString
-        imagePath = res
         
-        print("Saved the photo to \(imagePath)")
+        print("Saved the photo to \(res)")
         
         return res
-    }
-    
-    func deletePhoto() {
-        if (!imagePath.isEmpty) {
-            do {
-                try FileManager.default.removeItem(at: URL(string: imagePath)!)
-            } catch {
-                print("Failed to delete the item at path \(imagePath): \(error)")
-                return
-            }
-            print("Deleted photo at \(imagePath)")
-        }
     }
     
     var canSaveItem: Bool {
@@ -77,116 +103,340 @@ struct CreateFoodView: View {
     }
     
     var body: some View {
-        List {
-            Section {
-                HStack {
-                    Text("Barcode")
-                    TextField("e.g. 12345678", text: $code)
-                        .keyboardType(.numberPad)
-                        .multilineTextAlignment(.trailing)
-                    Rectangle()
-                        .frame(maxWidth: 2, maxHeight: 24)
-                        .foregroundColor(Color(UIColor.systemGray3.cgColor))
-                        .padding(.horizontal, 4)
+        NavigationView {
+            List {
+                Section {
+                    HStack {
+                        Text("Barcode")
+                        TextField("e.g. 12345678", text: $code)
+                            .keyboardType(.numberPad)
+                            .multilineTextAlignment(.trailing)
+                        Rectangle()
+                            .frame(maxWidth: 2, maxHeight: 24)
+                            .foregroundColor(Color(UIColor.systemGray3.cgColor))
+                            .padding(.horizontal, 4)
+                        Button {
+                            showScanner = true
+                        } label: {
+                            Image(systemName: "barcode.viewfinder")
+                                .font(.title)
+                        }
+                    }
+                } header: {
                     Button {
-                        showScanner = true
+                        showImagePicker = true
                     } label: {
-                        Image(systemName: "barcode.viewfinder")
-                            .font(.title)
-                    }
-                }
-            } header: {
-                Button {
-                    showImagePicker = true
-                } label: {
-                    if let image = inputImage {
-                        ZStack {
-                            Image(uiImage: image)
-                                .resizable()
-                                .scaledToFill()
-                                .frame(width: 200, height: 200)
-                                .clipShape(Circle())
-                                .overlay(Circle().stroke(Color.blue, lineWidth: 2))
-
-                            Button(action: {
-                                withAnimation(.easeInOut) {
-                                    inputImage = nil
-                                    deletePhoto()
+                        if let image = inputImage {
+                            ZStack {
+                                Image(uiImage: image)
+                                    .resizable()
+                                    .scaledToFill()
+                                    .frame(width: 200, height: 200)
+                                    .clipShape(Circle())
+                                    .overlay(Circle().stroke(Color.blue, lineWidth: 2))
+                                Button {
+                                    withAnimation(.easeInOut) {
+                                        inputImage = nil
+                                    }
+                                } label: {
+                                    Image(systemName: "xmark.circle.fill")
+                                        .symbolRenderingMode(SymbolRenderingMode.multicolor)
+                                        .font(.system(size: 32))
                                 }
-                            }) {
-                                Image(systemName: "xmark.circle.fill")
-                                    .symbolRenderingMode(SymbolRenderingMode.multicolor)
-                                    .font(.system(size: 32))
+                                .offset(x: sin(45)*100-15, y: -sin(45)*100+15)
                             }
-                            .offset(x: sin(45)*100-15, y: -sin(45)*100+15)
+                        } else {
+                            VStack {
+                                Image(systemName: "camera")
+                                    .font(.system(size: 32))
+                                    .padding(.bottom, 8)
+                                Text("Add photo")
+                            }
+                            .frame(width: 200, height: 200)
+                            .background(RoundedRectangle(cornerRadius: 100).stroke(.blue, lineWidth: 2))
                         }
-                    } else {
-                        VStack {
-                            Image(systemName: "camera")
-                                .font(.system(size: 32))
-                                .padding(.bottom, 8)
-                            Text("Add photo")
+                    }
+                    .frame(maxWidth: .infinity)
+                    .padding(18)
+                    .padding(.bottom, 20)
+                }
+                Section("General") {
+                    HStack {
+                        Text("Brand")
+                        TextField("e.g. Barilla", text: $brand)
+                            .multilineTextAlignment(.trailing)
+                    }
+                    HStack {
+                        Text("Title")
+                        TextField("e.g. Spaghettoni N.8", text: $title)
+                            .multilineTextAlignment(.trailing)
+                    }
+                    Picker("Category", selection: $category) {
+                        ForEach(categories, id: \.self) { item in
+                            Text(item)
+                                .foregroundColor(item == "None" ? Color(UIColor.tertiaryLabel) : .black)
                         }
-                        .frame(width: 200, height: 200)
-                        .background(RoundedRectangle(cornerRadius: 100).stroke(.blue, lineWidth: 2))
+                    }
+                    .pickerStyle(NavigationLinkPickerStyle())
+                    VStack(alignment: .leading) {
+                        Text("Notes")
+                        TextField("e.g. Microwave for 5 minutes before eating", text: $notes,  axis: .vertical)
+                            .lineLimit(0...5)
                     }
                 }
-                .frame(maxWidth: .infinity)
-                .padding(18)
-                .padding(.bottom, 20)
-                .onChange(of: inputImage) { value in
-                    savePhoto()
+                Section("Macronutrients (per 100g)") {
+                    HStack(spacing: 4) {
+                        Text("Calories")
+                        TextField("243", value: $calories, format: .number)
+                            .keyboardType(.numberPad)
+                            .multilineTextAlignment(.trailing)
+                        Text("kcal")
+                            .foregroundColor(calories != nil ? .primary : Color(UIColor.systemGray3.cgColor))
+                    }
+                    HStack(spacing: 4) {
+                        Text("Protein")
+                        TextField("23", value: $protein, format: .number)
+                            .keyboardType(.numberPad)
+                            .multilineTextAlignment(.trailing)
+                        Text("g")
+                            .foregroundColor(protein != nil ? .primary : Color(UIColor.systemGray3.cgColor))
+                    }
+                    HStack(spacing: 4) {
+                        Text("Carbs")
+                        TextField("130", value: $carbs, format: .number)
+                            .keyboardType(.numberPad)
+                            .multilineTextAlignment(.trailing)
+                        Text("g")
+                            .foregroundColor(carbs != nil ? .primary : Color(UIColor.systemGray3.cgColor))
+                    }
+                    HStack(spacing: 4) {
+                        Text("Fats")
+                        TextField("5", value: $fats, format: .number)
+                            .keyboardType(.numberPad)
+                            .multilineTextAlignment(.trailing)
+                        Text("g")
+                            .foregroundColor(fats != nil ? .primary : Color(UIColor.systemGray3.cgColor))
+                    }
                 }
-            }
-            Section("General") {
-                HStack {
-                    Text("Brand")
-                    TextField("e.g. Barilla", text: $brand)
-                        .multilineTextAlignment(.trailing)
+                Section("Vitamins (per 100g)") {
+                    Group {
+                        HStack(spacing: 4) {
+                            Text("Vitamin A")
+                            TextField("0.9", value: $calories, format: .number)
+                                .keyboardType(.numberPad)
+                                .multilineTextAlignment(.trailing)
+                            Text("mg")
+                                .foregroundColor(calories != nil ? .primary : Color(UIColor.systemGray3.cgColor))
+                        }
+                        HStack(spacing: 4) {
+                            Text("Vitamin B1")
+                            TextField("1.2", value: $protein, format: .number)
+                                .keyboardType(.numberPad)
+                                .multilineTextAlignment(.trailing)
+                            Text("mg")
+                                .foregroundColor(protein != nil ? .primary : Color(UIColor.systemGray3.cgColor))
+                        }
+                        HStack(spacing: 4) {
+                            Text("Vitamin B2")
+                            TextField("1.3", value: $protein, format: .number)
+                                .keyboardType(.numberPad)
+                                .multilineTextAlignment(.trailing)
+                            Text("mg")
+                                .foregroundColor(protein != nil ? .primary : Color(UIColor.systemGray3.cgColor))
+                        }
+                        HStack(spacing: 4) {
+                            Text("Vitamin B3")
+                            TextField("16", value: $protein, format: .number)
+                                .keyboardType(.numberPad)
+                                .multilineTextAlignment(.trailing)
+                            Text("mg")
+                                .foregroundColor(protein != nil ? .primary : Color(UIColor.systemGray3.cgColor))
+                        }
+                        HStack(spacing: 4) {
+                            Text("Vitamin B5")
+                            TextField("5", value: $protein, format: .number)
+                                .keyboardType(.numberPad)
+                                .multilineTextAlignment(.trailing)
+                            Text("mg")
+                                .foregroundColor(protein != nil ? .primary : Color(UIColor.systemGray3.cgColor))
+                        }
+                    }
+                    Group {
+                        HStack(spacing: 4) {
+                            Text("Vitamin B7")
+                            TextField("1.7", value: $protein, format: .number)
+                                .keyboardType(.numberPad)
+                                .multilineTextAlignment(.trailing)
+                            Text("mg")
+                                .foregroundColor(protein != nil ? .primary : Color(UIColor.systemGray3.cgColor))
+                        }
+                        HStack(spacing: 4) {
+                            Text("Vitamin B9")
+                            TextField("0.4", value: $protein, format: .number)
+                                .keyboardType(.numberPad)
+                                .multilineTextAlignment(.trailing)
+                            Text("mg")
+                                .foregroundColor(protein != nil ? .primary : Color(UIColor.systemGray3.cgColor))
+                        }
+                        HStack(spacing: 4) {
+                            Text("Vitamin B12")
+                            TextField("0.0024", value: $protein, format: .number)
+                                .keyboardType(.numberPad)
+                                .multilineTextAlignment(.trailing)
+                            Text("mg")
+                                .foregroundColor(protein != nil ? .primary : Color(UIColor.systemGray3.cgColor))
+                        }
+                        HStack(spacing: 4) {
+                            Text("Vitamin C")
+                            TextField("90", value: $protein, format: .number)
+                                .keyboardType(.numberPad)
+                                .multilineTextAlignment(.trailing)
+                            Text("mg")
+                                .foregroundColor(protein != nil ? .primary : Color(UIColor.systemGray3.cgColor))
+                        }
+                        HStack(spacing: 4) {
+                            Text("Vitamin D")
+                            TextField("0.02", value: $protein, format: .number)
+                                .keyboardType(.numberPad)
+                                .multilineTextAlignment(.trailing)
+                            Text("mg")
+                                .foregroundColor(protein != nil ? .primary : Color(UIColor.systemGray3.cgColor))
+                        }
+                        HStack(spacing: 4) {
+                            Text("Vitamin E")
+                            TextField("0.015", value: $protein, format: .number)
+                                .keyboardType(.numberPad)
+                                .multilineTextAlignment(.trailing)
+                            Text("mg")
+                                .foregroundColor(protein != nil ? .primary : Color(UIColor.systemGray3.cgColor))
+                        }
+                        HStack(spacing: 4) {
+                            Text("Vitamin K")
+                            TextField("0.12", value: $protein, format: .number)
+                                .keyboardType(.numberPad)
+                                .multilineTextAlignment(.trailing)
+                            Text("mg")
+                                .foregroundColor(protein != nil ? .primary : Color(UIColor.systemGray3.cgColor))
+                        }
+                    }
                 }
-                HStack {
-                    Text("Title")
-                    TextField("e.g. Spaghettoni N.8", text: $title)
-                        .multilineTextAlignment(.trailing)
-                }
-                VStack(alignment: .leading) {
-                    Text("Notes")
-                    TextField("e.g. Microwave for 5 minutes before eating", text: $notes,  axis: .vertical)
-                        .lineLimit(0...5)
-                }
-            }
-            Section("Nutrition (per 100g)") {
-                HStack(spacing: 4) {
-                    Text("Calories")
-                    TextField("243", value: $calories, format: .number)
-                        .keyboardType(.numberPad)
-                        .multilineTextAlignment(.trailing)
-                    Text("kcal")
-                        .foregroundColor(calories != nil ? .primary : Color(UIColor.systemGray3.cgColor))
-                }
-                HStack(spacing: 4) {
-                    Text("Protein")
-                    TextField("23", value: $protein, format: .number)
-                        .keyboardType(.numberPad)
-                        .multilineTextAlignment(.trailing)
-                    Text("g")
-                        .foregroundColor(protein != nil ? .primary : Color(UIColor.systemGray3.cgColor))
-                }
-                HStack(spacing: 4) {
-                    Text("Carbs")
-                    TextField("130", value: $carbs, format: .number)
-                        .keyboardType(.numberPad)
-                        .multilineTextAlignment(.trailing)
-                    Text("g")
-                        .foregroundColor(carbs != nil ? .primary : Color(UIColor.systemGray3.cgColor))
-                }
-                HStack(spacing: 4) {
-                    Text("Fats")
-                    TextField("5", value: $fats, format: .number)
-                        .keyboardType(.numberPad)
-                        .multilineTextAlignment(.trailing)
-                    Text("g")
-                        .foregroundColor(fats != nil ? .primary : Color(UIColor.systemGray3.cgColor))
+                Section("Minerals (per 100g)") {
+                    Group {
+                        HStack(spacing: 4) {
+                            Text("Calcium")
+                            TextField("1000", value: $calories, format: .number)
+                                .keyboardType(.numberPad)
+                                .multilineTextAlignment(.trailing)
+                            Text("mg")
+                                .foregroundColor(calories != nil ? .primary : Color(UIColor.systemGray3.cgColor))
+                        }
+                        HStack(spacing: 4) {
+                            Text("Iron")
+                            TextField("18", value: $protein, format: .number)
+                                .keyboardType(.numberPad)
+                                .multilineTextAlignment(.trailing)
+                            Text("mg")
+                                .foregroundColor(protein != nil ? .primary : Color(UIColor.systemGray3.cgColor))
+                        }
+                        HStack(spacing: 4) {
+                            Text("Magnesium")
+                            TextField("400", value: $protein, format: .number)
+                                .keyboardType(.numberPad)
+                                .multilineTextAlignment(.trailing)
+                            Text("mg")
+                                .foregroundColor(protein != nil ? .primary : Color(UIColor.systemGray3.cgColor))
+                        }
+                        HStack(spacing: 4) {
+                            Text("Phosphorus")
+                            TextField("1000", value: $protein, format: .number)
+                                .keyboardType(.numberPad)
+                                .multilineTextAlignment(.trailing)
+                            Text("mg")
+                                .foregroundColor(protein != nil ? .primary : Color(UIColor.systemGray3.cgColor))
+                        }
+                        HStack(spacing: 4) {
+                            Text("Potassium")
+                            TextField("4700", value: $protein, format: .number)
+                                .keyboardType(.numberPad)
+                                .multilineTextAlignment(.trailing)
+                            Text("mg")
+                                .foregroundColor(protein != nil ? .primary : Color(UIColor.systemGray3.cgColor))
+                        }
+                    }
+                    Group {
+                        HStack(spacing: 4) {
+                            Text("Sodium")
+                            TextField("1500", value: $protein, format: .number)
+                                .keyboardType(.numberPad)
+                                .multilineTextAlignment(.trailing)
+                            Text("mg")
+                                .foregroundColor(protein != nil ? .primary : Color(UIColor.systemGray3.cgColor))
+                        }
+                        HStack(spacing: 4) {
+                            Text("Zinc")
+                            TextField("11", value: $protein, format: .number)
+                                .keyboardType(.numberPad)
+                                .multilineTextAlignment(.trailing)
+                            Text("mg")
+                                .foregroundColor(protein != nil ? .primary : Color(UIColor.systemGray3.cgColor))
+                        }
+                        HStack(spacing: 4) {
+                            Text("Copper")
+                            TextField("0.9", value: $protein, format: .number)
+                                .keyboardType(.numberPad)
+                                .multilineTextAlignment(.trailing)
+                            Text("mg")
+                                .foregroundColor(protein != nil ? .primary : Color(UIColor.systemGray3.cgColor))
+                        }
+                        HStack(spacing: 4) {
+                            Text("Manganese")
+                            TextField("2.3", value: $protein, format: .number)
+                                .keyboardType(.numberPad)
+                                .multilineTextAlignment(.trailing)
+                            Text("mg")
+                                .foregroundColor(protein != nil ? .primary : Color(UIColor.systemGray3.cgColor))
+                        }
+                        HStack(spacing: 4) {
+                            Text("Selenium")
+                            TextField("0.055", value: $protein, format: .number)
+                                .keyboardType(.numberPad)
+                                .multilineTextAlignment(.trailing)
+                            Text("mg")
+                                .foregroundColor(protein != nil ? .primary : Color(UIColor.systemGray3.cgColor))
+                        }
+                        HStack(spacing: 4) {
+                            Text("Fluoride")
+                            TextField("4", value: $protein, format: .number)
+                                .keyboardType(.numberPad)
+                                .multilineTextAlignment(.trailing)
+                            Text("mg")
+                                .foregroundColor(protein != nil ? .primary : Color(UIColor.systemGray3.cgColor))
+                        }
+                        HStack(spacing: 4) {
+                            Text("Chromium")
+                            TextField("0.035", value: $protein, format: .number)
+                                .keyboardType(.numberPad)
+                                .multilineTextAlignment(.trailing)
+                            Text("mg")
+                                .foregroundColor(protein != nil ? .primary : Color(UIColor.systemGray3.cgColor))
+                        }
+                        HStack(spacing: 4) {
+                            Text("Molybdenum")
+                            TextField("0.045", value: $protein, format: .number)
+                                .keyboardType(.numberPad)
+                                .multilineTextAlignment(.trailing)
+                            Text("mg")
+                                .foregroundColor(protein != nil ? .primary : Color(UIColor.systemGray3.cgColor))
+                        }
+                        HStack(spacing: 4) {
+                            Text("Iodine")
+                            TextField("0.15", value: $protein, format: .number)
+                                .keyboardType(.numberPad)
+                                .multilineTextAlignment(.trailing)
+                            Text("mg")
+                                .foregroundColor(protein != nil ? .primary : Color(UIColor.systemGray3.cgColor))
+                        }
+                    }
                 }
             }
         }
@@ -219,7 +469,7 @@ struct CreateFoodView: View {
 
 struct CreateFoodView_Previews: PreviewProvider {
     static var previews: some View {
-        CreateFoodView()
+        CreateFoodView(isScreenPresented: .constant(true))
     }
 }
 

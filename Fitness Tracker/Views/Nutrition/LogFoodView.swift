@@ -6,20 +6,32 @@
 //
 
 import SwiftUI
+import CoreData
 
-struct AddFoodView: View {
+struct LogFoodView: View {
+    @Environment(\.managedObjectContext) var moc: NSManagedObjectContext
+    
     @Binding var showSheet: Bool
-    @State var items: [FoodItem] = []
+    
     @State var showScanner = false
     @State var showCreateFoodView = false
+    
     @State var barcode = ""
+    @State var showCancelActions = false
+    
+    @FetchRequest(sortDescriptors: [])
+    private var items: FetchedResults<FoodItem>
     
     func confirm() {
         
     }
     
     func cancel() {
-        showSheet = false
+        if (selectedItems.isEmpty) {
+            showSheet = false
+        } else {
+            showCancelActions = true
+        }
     }
     
     func scanBarcode() {
@@ -43,19 +55,7 @@ struct AddFoodView: View {
     }
     
     @State var searchText: String = ""
-    @State var selectedItems: [String] = []
-    
-    let foodItem: FoodItem = FoodItem(
-        id: 0,
-        imageUrl: URL(string: "https://google.com")!,
-        title: "🍳 Omelette",
-        nutrition: NutritionInfo(
-            calories: 200,
-            protein: 20,
-            carbohydrates: 80,
-            fats: 5
-        )
-    )
+    @State var selectedItems: [FoodItem] = []
     
     var body: some View {
         NavigationStack {
@@ -71,7 +71,9 @@ struct AddFoodView: View {
                 }
                 .padding(.leading, 10)
                 .padding(.trailing)
-                NavigationLink(destination: CreateFoodView()) {
+                Button {
+                    showCreateFoodView = true
+                } label: {
                     HStack {
                         Spacer()
                         Image(systemName: "plus")
@@ -92,88 +94,32 @@ struct AddFoodView: View {
                             .padding(.horizontal, 80)
                         Spacer()
                     } else {
-                        List(items) { item in
-                            Text(item.title)
+                        List {
+                            Group {
+                                if (!selectedItems.isEmpty) {
+                                    Section("Selected") {
+                                        ForEach(selectedItems, id: \.objectID) { item in
+                                            Text(item.title ?? "")
+                                                .onTapGesture {
+                                                    selectedItems.remove(at: selectedItems.index(of: item)!)
+                                                }
+                                        }
+                                    }
+                                }
+                            }
+                            Section("All Items") {
+                                ForEach(items, id: \.objectID) { item in
+                                    Text(item.title ?? "")
+                                        .onTapGesture {
+                                            selectedItems.append(item)
+                                        }
+                                }
+                            }
                         }
                     }
                 }
-//                    HStack(spacing: .zero) {
-//                        Button {
-//                            addItem()
-//                        } label: {
-//                            HStack {
-//                                Image(systemName: "plus")
-//                                Text("Item")
-//                            }
-//                            .padding(.horizontal)
-//                            .frame(width: .infinity, height: 32)
-//                            .background(RoundedRectangle(cornerRadius: 8).stroke(.blue))
-//                        }
-//                        .padding(.trailing)
-//                        Button {
-//                            addRecipe()
-//                        } label: {
-//                            HStack {
-//                                Image(systemName: "plus")
-//                                Text("Recipe")
-//                            }
-//                            .padding(.horizontal)
-//                            .frame(width: .infinity, height: 32)
-//                            .background(RoundedRectangle(cornerRadius: 8).stroke(.blue))
-//                        }
-//                        .padding(.trailing)
-//                        Button {
-//                            addMeal()
-//                        } label: {
-//                            HStack {
-//                                Image(systemName: "plus")
-//                                Text("Meal")
-//                            }
-//                            .padding(.horizontal)
-//                            .frame(width: .infinity, height: 32)
-//                            .background(RoundedRectangle(cornerRadius: 8).stroke(.blue))
-//                        }
-//                        Spacer()
-//                    }
-//                    .padding(.horizontal, 18)
-//                    .padding(.bottom)
-//                    ScrollView {
-//                        VStack {
-//                            Group {
-//                                if (!selectedItems.isEmpty || true) {
-//                                    CategoryView(
-//                                        title: "Selected",
-//                                        items: [foodItem]
-//                                    )
-//                                }
-//                            }
-//                            CategoryView(
-//                                title: "Eating Now",
-//                                items: [foodItem,foodItem,foodItem]
-//                            )
-//                            CategoryView(
-//                                title: "Favorites",
-//                                items: [foodItem,foodItem,foodItem,foodItem]
-//                            )
-//                            CategoryView(
-//                                title: "Recipes",
-//                                items: [foodItem,foodItem,foodItem,foodItem]
-//                            )
-//                            CategoryView(
-//                                title: "Meals",
-//                                items: [foodItem,foodItem,foodItem,foodItem]
-//                            )
-//                            CategoryView(
-//                                title: "Drinks",
-//                                items: [foodItem,foodItem,foodItem,foodItem]
-//                            )
-//                            CategoryView(
-//                                title: "Desserts",
-//                                items: [foodItem,foodItem,foodItem,foodItem]
-//                            )
-//                        }
-//                    }
             }
+            .background(Color(UIColor.systemGroupedBackground))
             .navigationTitle("Log food")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
@@ -193,6 +139,18 @@ struct AddFoodView: View {
 
                 }
             }
+            .confirmationDialog("Cancel logging food?", isPresented: $showCancelActions) {
+                Button(role: .destructive) {
+                    showSheet = false
+                } label: {
+                    Text("Cancel")
+                }
+                Button() {
+                    showCancelActions = false
+                } label: {
+                    Text("Continue")
+                }
+            }
             .fullScreenCover(isPresented: $showScanner) {
                 BarcodeScannerView { code in
                     self.barcode = code
@@ -205,26 +163,19 @@ struct AddFoodView: View {
                 .statusBarHidden()
             }
             .navigationDestination(isPresented: $showCreateFoodView) {
-                CreateFoodView(code: barcode)
+                CreateFoodView(isScreenPresented: $showCreateFoodView, code: barcode)
             }
         }
     }
 }
 
-struct FoodItem: Identifiable {
+struct LogFoodView_Previews: PreviewProvider {
+    static var persistence = Persistence()
     
-    var id: Int
-    
-    var imageUrl: URL
-    var title: String
-    var nutrition: NutritionInfo
-}
-
-struct NutritionInfo {
-    var calories: Int
-    var protein: Int
-    var carbohydrates: Int
-    var fats: Int
+    static var previews: some View {
+        LogFoodView(showSheet: .constant(false))
+            .environment(\.managedObjectContext, persistence.container.viewContext)
+    }
 }
 
 struct CategoryView: View {
@@ -278,29 +229,23 @@ struct FoodItemCard: View {
                     .font(.caption)
                     .opacity(0.5)
             }
-            Text(item.title)
+            Text(item.title!)
             HStack {
-                StatView(title: "Calories", value: item.nutrition.calories, small: true)
+                StatView(title: "Calories", value: item.calories, small: true)
                 Spacer()
                 Rectangle()
                     .frame(width: 1, height: 32)
                     .foregroundColor(.gray.opacity(0.5))
                     .cornerRadius(1)
                 Spacer()
-                StatView(title: "Protein", value: item.nutrition.protein, unit: "g", small: true)
+                StatView(title: "Protein", value: item.protein, unit: "g", small: true)
                 Spacer()
-                StatView(title: "Carbs", value: item.nutrition.carbohydrates, unit: "g", small: true)
+                StatView(title: "Carbs", value: item.carbs, unit: "g", small: true)
                 Spacer()
-                StatView(title: "Fats", value: item.nutrition.fats, unit: "g", small: true)
+                StatView(title: "Fats", value: item.fats, unit: "g", small: true)
             }
             .padding(.horizontal, 12)
         }
-    }
-}
-
-struct AddFoodView_Previews: PreviewProvider {
-    static var previews: some View {
-        AddFoodView(showSheet: .constant(false))
     }
 }
 
