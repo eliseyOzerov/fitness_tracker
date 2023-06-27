@@ -34,7 +34,6 @@ class Persistence {
     /// The preview object to use with previews
     static let preview: Persistence = {
         let persistence = Persistence(inMemory: true)
-        persistence.generateSampleData()
         return persistence
     }()
     
@@ -49,10 +48,5 @@ class Persistence {
         } else {
             print("No changes to save")
         }
-    }
-    
-    /// Generates sample data for the previews
-    private func generateSampleData() {
-        
     }
 }

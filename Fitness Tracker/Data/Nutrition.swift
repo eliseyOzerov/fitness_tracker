@@ -17,5 +17,5 @@ class NutritionData: ObservableObject {
     
     // MARK: - Data
     
-    @Published var foodItems: [FoodItem] = []
+    @Published var FoodItems: [FoodItem] = []
 }

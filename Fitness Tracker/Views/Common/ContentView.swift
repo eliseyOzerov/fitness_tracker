@@ -42,9 +42,7 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        let persistence = Persistence(inMemory: true)
-        let container = persistence.container
         ContentView()
-            .environment(\.managedObjectContext, container.viewContext)
+            .environment(\.managedObjectContext, Persistence(inMemory: true).container.viewContext)
     }
 }

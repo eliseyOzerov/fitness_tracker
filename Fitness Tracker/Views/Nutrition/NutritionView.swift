@@ -10,7 +10,7 @@ import Charts
 import CoreData
 
 struct NutritionView: View {
-    @Environment(\.managedObjectContext) var moc
+    @Environment(\.managedObjectContext) var moc: NSManagedObjectContext
     
     @State var selectedDay: Date = Date() {
         didSet {
@@ -20,10 +20,6 @@ struct NutritionView: View {
     @State var isAddSheetPresented: Bool = false
     @State var caloriesGoal: Int?
     @State var proteinGoal: Int?
-//    @State var ca
-    
-    @FetchRequest(sortDescriptors: [])
-    var itemsfr: FetchedResults<LoggedFood>
     
     @State var items: [Date:[LoggedFood]] = [:]
     
@@ -32,11 +28,11 @@ struct NutritionView: View {
         let start = Date().startOfWeek().subtract(component: .day, value: 7)
         let end = start.add(component: .day, value: 14)
         let datePredicate = NSPredicate(format: "(date >= %@) AND (date < %@)", start as NSDate, end as NSDate)
-        let fetchRequest: NSFetchRequest<FoodItem> = FoodItem.fetchRequest()
+        let fetchRequest: NSFetchRequest<LoggedFood> = LoggedFood.fetchRequest()
         fetchRequest.predicate = datePredicate
         do {
             let allItems = try moc.fetch(fetchRequest)
-//            items = Dictionary(grouping: allItems, by: { $0.dateTime!.startOfDay() })
+            items = Dictionary(grouping: allItems, by: { $0.date!.startOfDay() })
         } catch {
             print(error)
         }
@@ -50,22 +46,6 @@ struct NutritionView: View {
         return selectedDay.currentWeek().map { $0.day }
     }
     
-    /// info for each day:
-    ///  protein kcal
-    ///  carb kcal
-    ///  fat kcal
-    ///  goal kcal
-    ///  goal protein
-    ///  goal carbs
-    ///  goal fats
-    ///  spent kcal
-    ///
-    
-    init() {
-        fetchItems()
-//        fetchGoals()
-    }
-    
     var body: some View {
         GeometryReader { geometry in
             NavigationView {
@@ -76,21 +56,18 @@ struct NutritionView: View {
                     Spacer()
                         .frame(height: 20)
                     TabView {
-                        ForEach(itemsfr, id: \.self) { item in
-                            Text(item.item!.title!)
+                        ForEach(items.sorted(by: { $0.key > $1.key }), id: \.self.key) { item in
+                            VStack {
+                                CaloriesView(proteinCalories: 400, carbCalories: 1300, fatCalories: 500, goalCalories: 2300, spentCalories: 320)
+                                Spacer()
+                                    .frame(height: 20)
+                                NutrientsView(protein: 400, proteinGoal: 480, carbs: 1300, carbGoal: 1200, fats: 414, fatGoal: 400)
+                                Spacer()
+                                    .frame(height: 20)
+                                LoggedFoodsView(items: item.value)
+                                Spacer()
+                            }
                         }
-//                        ForEach(items.sorted(by: { $0.key > $1.key }), id: \.self.key) { item in
-//                            VStack {
-//                                CaloriesView(proteinCalories: 400, carbCalories: 1300, fatCalories: 500, goalCalories: 2300, spentCalories: 320)
-//                                Spacer()
-//                                    .frame(height: 20)
-//                                NutrientsView(protein: 400, proteinGoal: 480, carbs: 1300, carbGoal: 1200, fats: 414, fatGoal: 400)
-//                                Spacer()
-//                                    .frame(height: 20)
-//                                LoggedFoodsView(items: item.value)
-//                                Spacer()
-//                            }
-//                        }
                     }
                     .frame(height: geometry.size.height - geometry.safeAreaInsets.top - geometry.safeAreaInsets.bottom)
                     .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
@@ -111,6 +88,9 @@ struct NutritionView: View {
                     }
                 }
             }
+        }
+        .onAppear {
+            fetchItems()
         }
     }
 }
@@ -356,7 +336,7 @@ struct LoggedFoodsView: View {
                     VStack(alignment: .leading, spacing: 4) {
                         Text("\(item.item!.title!)")
                         HStack(alignment: .firstTextBaseline, spacing: 4) {
-                            Text("\(item.dateTime!.formatted(date: .omitted, time: .shortened))")
+                            Text("\(item.date!.formatted(date: .omitted, time: .shortened))")
                             Text("⋅")
                             Text("\(Int(item.amount))g")
                         }
@@ -548,9 +528,8 @@ struct CustomProgressView<Content: View>: View {
 
 struct NutritionView_Previews: PreviewProvider {
     static var previews: some View {
-        let persistence = Persistence(inMemory: true)
         NutritionView()
-            .environment(\.managedObjectContext, persistence.container.viewContext)
+            .environment(\.managedObjectContext, Persistence(inMemory: true).container.viewContext)
     }
 }
 

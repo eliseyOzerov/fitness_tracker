@@ -10,14 +10,10 @@ import CoreData
 
 @main
 struct Fitness_TrackerApp: App {
-    let persistence = Persistence()
-    
     var body: some Scene {
-        let context = persistence.container.viewContext
-        let coordinator = persistence.container.persistentStoreCoordinator
         WindowGroup {
             ContentView()
-                .environment(\.managedObjectContext, context)
+                .environment(\.managedObjectContext, Persistence().container.viewContext)
         }
     }
 }

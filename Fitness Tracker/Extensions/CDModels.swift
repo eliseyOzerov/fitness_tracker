@@ -39,7 +39,7 @@ extension LoggedFood {
     static func makePreview(_ context: NSManagedObjectContext) -> LoggedFood {
         let item = LoggedFood(context: context)
         item.amount = 100
-        item.dateTime = Date()
+        item.date = Date()
         item.item = FoodItem.preview
         return item
     }
